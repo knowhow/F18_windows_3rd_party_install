@@ -4,7 +4,7 @@ echo   Ovaj batch file instalira F18 na lokaciju c:\knowhowERP
 echo   Potrebna je internet konekcija i administratorske privilegije
 echo.
 echo. 
-echo   Nakon instalacije je potrebno restartovati računar  
+echo   Nakon instalacije je potrebno restartovati racunar zbog PTXT fontova  
 echo.     
 echo.      
 echo. 
@@ -13,11 +13,13 @@ echo.
 echo Pritisni Ctrl+C za prekid ili bilo koju tipku za nastavak...
 pause > nul
 
-set I_VER="0.1.2"
-set I_DATE="14.12.2011"
+set I_VER="0.5.0"
+set I_DATE="09.01.2012"
+
+
 set DELRB_VER="1.0"
 set PTXT_VER="1.55"
-set F18_VER="0.9.17"
+set F18_VER="0.9.37"
 
 echo "F18 windows third party install ver %I_VER%, %I_DATE%"
 
