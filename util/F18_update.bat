@@ -47,8 +47,7 @@ echo zatvaram aktivne F18 procese
 
 rem taskkill /F /IM F18.exe /T
 rem tasklist /FI "IMAGENAME eq F18.exe" 2>NUL | find /I /N "F18.exe">NUL
-
-if "%ERRORLEVEL%"=="0" goto KILL
+rem if "%ERRORLEVEL%"=="0" goto KILL
 
 goto :EXTR
 
