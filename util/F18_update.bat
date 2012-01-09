@@ -44,15 +44,17 @@ pause
 
 echo zatvaram aktivne F18 procese 
 :KILL
-taskkill /F /IM F18.exe /T
-tasklist /FI "IMAGENAME eq F18.exe" 2>NUL | find /I /N "F18.exe">NUL
+
+rem taskkill /F /IM F18.exe /T
+rem tasklist /FI "IMAGENAME eq F18.exe" 2>NUL | find /I /N "F18.exe">NUL
+
 if "%ERRORLEVEL%"=="0" goto KILL
 
 goto :EXTR
 
 :EXTR
 
-gzip -dN F18_Windows_%1.gz
+gzip -fdN F18_Windows_%1.gz
 xcopy /Y /i F18.exe c:\knowhowERP\bin
 
 cd ..
