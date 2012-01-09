@@ -35,3 +35,7 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+set fileencoding=utf-8
+set encoding=utf-8
+
