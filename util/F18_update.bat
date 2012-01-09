@@ -1,12 +1,12 @@
-@echo on
+@echo off
 
-set I_VER="0.1.2"
-set I_DATE="14.12.2011"
+set I_VER="0.5.0"
+set I_DATE="09.01.2012"
+
 set F18_VER="%1"
 set URL="http://knowhow-erp-f18.googlecode.com/files"
 
 echo "F18 windows update  ver %I_VER%, %I_DATE%"
-
 
 rem env vars
 set PATH=%PATH%;C:\knowhowERP\bin;C:\knowhowERP\lib;C:\knowhowERP\util
