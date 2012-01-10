@@ -1,7 +1,7 @@
 @echo off
 
-set I_VER="0.5.0"
-set I_DATE="09.01.2012"
+set I_VER="0.6.0"
+set I_DATE="10.01.2012"
 
 set F18_VER="%1"
 set URL="http://knowhow-erp-f18.googlecode.com/files"
@@ -45,9 +45,7 @@ pause
 echo zatvaram aktivne F18 procese 
 :KILL
 
-rem taskkill /F /IM F18.exe /T
-rem tasklist /FI "IMAGENAME eq F18.exe" 2>NUL | find /I /N "F18.exe">NUL
-rem if "%ERRORLEVEL%"=="0" goto KILL
+bash -c "export F18_PID=`ps -e -W  | grep F18 | gawk '{print $1}'` ; kill.exe -f $F18_PID"
 
 goto :EXTR
 
