@@ -1,3 +1,7 @@
+0.6.1 2012-01-12, hernad
+
+   - zlib.dll -> lib
+
 0.6.0 2012-01-12, hernad
 
   - [#26148](http://redmine.bring.out.ba/issues/26148) jodreports-cli 2.4.0
