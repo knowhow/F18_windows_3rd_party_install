@@ -1,6 +1,6 @@
-0.6.0 2012-01-10, hernad
+0.6.0 2012-01-12, hernad
 
-  -  [#26148](http://redmine.bring.out.ba/issues/26148)
+  - [#26148](http://redmine.bring.out.ba/issues/26148) jodreports-cli 2.4.0
 
 0.5.0 2012-01-09, hernad
 
