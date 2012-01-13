@@ -13,8 +13,8 @@ echo.
 echo Pritisni Ctrl+C za prekid ili bilo koju tipku za nastavak...
 pause > nul
 
-set I_VER="0.5.0"
-set I_DATE="09.01.2012"
+set I_VER="0.7.0"
+set I_DATE="13.01.2012"
 
 
 set DELRB_VER="1.0"
@@ -66,7 +66,6 @@ IF     ERRORLEVEL 1 goto :OFFLINE
 wget -N http://knowhow-erp-f18.googlecode.com/files/delphirb_%DELRB_VER%.gz
 wget -N http://knowhow-erp-f18.googlecode.com/files/ptxt_%PTXT_VER%.gz
 wget -N http://knowhow-erp-f18.googlecode.com/files/F18_Windows_%F18_VER%.gz
-
 
 goto :EXTRACT
 
