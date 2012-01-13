@@ -39,3 +39,6 @@ map <C-l> <C-w>l
 set fileencoding=utf-8
 set encoding=utf-8
 
+"izadlji sa esc
+nmap <ESC> :q!<CR>
+
