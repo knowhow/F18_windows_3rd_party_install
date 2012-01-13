@@ -1,3 +1,7 @@
+0.7.0 2012-01-13, hernad
+
+  - [#26136](http://redmine.bring.out.ba/issues/26136)
+ 
 0.6.1 2012-01-12, hernad
 
    - zlib.dll -> lib
