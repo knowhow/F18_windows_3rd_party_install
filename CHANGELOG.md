@@ -1,3 +1,7 @@
+0.7.5 2012-02-28, hernad
+
+  - [#26896](http://redmine.bring.out.ba/issues/26896)
+
 0.7.0 2012-01-13, hernad
 
   - [#26136](http://redmine.bring.out.ba/issues/26136)

@@ -14,6 +14,6 @@ set FN=%FN% %4
 
 set FEXE=c:\knowhowERP\util\ptxt_exe.exe
 
-c:\knowhowERP\util\start.exe %FEXE% %FN% /SW5=0
+c:\knowhowERP\util\start.exe %FEXE% %FN% /l
 
 
