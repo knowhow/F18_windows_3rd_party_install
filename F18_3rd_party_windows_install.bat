@@ -21,7 +21,7 @@ set I_DATE="29.02.2012"
 
 set DELRB_VER="1.0"
 set PTXT_VER="1.55"
-set F18_VER="0.9.37"
+set F18_VER="0.9.59"
 
 echo "F18 windows third party install ver %I_VER%, %I_DATE%"
 
@@ -109,6 +109,7 @@ tar xfv %TAR_F_NAME%
 echo rm tar %TAR_F_NAME%
 del %TAR_F_NAME%
 
+xcopy  /Y /i template e c:\knowhowERP\template
 
 
 echo F18 3d_party set uspjesno instaliran
