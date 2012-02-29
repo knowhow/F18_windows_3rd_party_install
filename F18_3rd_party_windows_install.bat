@@ -9,12 +9,14 @@ echo.
 echo.      
 echo. 
 
+set ROOT_GCODE_URL=http://knowhow-erp-f18.googlecode.com/files
+
 
 echo Pritisni Ctrl+C za prekid ili bilo koju tipku za nastavak...
 pause > nul
 
-set I_VER="0.7.0"
-set I_DATE="13.01.2012"
+set I_VER="0.7.5"
+set I_DATE="29.02.2012"
 
 
 set DELRB_VER="1.0"
@@ -63,9 +65,9 @@ IF     ERRORLEVEL 1 goto :OFFLINE
 
 :ONLINE
 
-wget -N http://knowhow-erp-f18.googlecode.com/files/delphirb_%DELRB_VER%.gz
-wget -N http://knowhow-erp-f18.googlecode.com/files/ptxt_%PTXT_VER%.gz
-wget -N http://knowhow-erp-f18.googlecode.com/files/F18_Windows_%F18_VER%.gz
+wget -N %ROOT_GCODE_URL%/delphirb_%DELRB_VER%.gz
+wget -N %ROOT_GCODE_URL%/ptxt_%PTXT_VER%.gz
+wget -N %ROOT_GCODE_URL%/F18_Windows_%F18_VER%.gz
 
 goto :EXTRACT
 
@@ -89,6 +91,25 @@ xcopy /Y /i  c:\knowhowERP\util\F18.lnk "%USERPROFILE%\Desktop"
 xcopy /Y /i  c:\knowhowERP\util\_vimrc  "%USERPROFILE%"
 
 cd ..
+
+
+:TEMPLATES
+
+echo.
+echo ----------------------------------------
+echo c:/knowhowERP/template
+set TAR_F_NAME=F18_knowhowERP_template.tar
+set BZ2_F_NAME=%TAR_F_NAME%.bz2
+
+wget -N  %ROOT_GCODE_URL%/%BZ2_F_NAME%
+echo bunzip2 %BZ2_F_NAME%
+bunzip2 %BZ2_F_NAME%
+echo untar %TAR_F_NAME%
+tar xfv %TAR_F_NAME%
+echo rm tar %TAR_F_NAME%
+del %TAR_F_NAME%
+
+
 
 echo F18 3d_party set uspjesno instaliran
 pause
