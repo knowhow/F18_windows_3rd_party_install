@@ -79,9 +79,9 @@ echo kreiran je tmp podfolder ubacite potrebne pakete u isti
 
 :EXTRACT
 
-gzip -dN ptxt_%PTXT_VER%.gz
-gzip -dN delphirb_%DELRB_VER%.gz
-gzip -dN F18_Windows_%F18_VER%.gz
+gzip -dNf ptxt_%PTXT_VER%.gz
+gzip -dNf delphirb_%DELRB_VER%.gz
+gzip -dNf F18_Windows_%F18_VER%.gz
 
 xcopy  /Y /i ptxt.exe c:\knowhowERP\util\ptxt_exe.exe
 xcopy  /Y /i delphirb.exe c:\knowhowERP\util
