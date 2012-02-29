@@ -109,7 +109,7 @@ tar xfv %TAR_F_NAME%
 echo rm tar %TAR_F_NAME%
 del %TAR_F_NAME%
 
-xcopy  /Y /i template e c:\knowhowERP\template
+xcopy  /Y /i template c:\knowhowERP\template
 
 
 echo F18 3d_party set uspjesno instaliran
