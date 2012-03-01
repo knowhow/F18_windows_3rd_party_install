@@ -1,3 +1,7 @@
+1.0.0 2012-03-01, hernad
+ 
+  - Qt dlls eksterna arhiva
+
 0.7.5 2012-02-28, hernad
 
   - [#26896](http://redmine.bring.out.ba/issues/26896)

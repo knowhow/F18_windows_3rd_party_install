@@ -9,21 +9,39 @@ echo.
 echo.      
 echo. 
 
-set ROOT_GCODE_URL=http://knowhow-erp-f18.googlecode.com/files
+set I_VER="1.0.0"
+set I_DATE="01.03.2012"
 
 
+set ROOT_GCODE_URL_F18=http://knowhow-erp-f18.googlecode.com/files
+set ROOT_GCODE_URL=http://knowhow-erp.googlecode.com/files
+
+set QT_VER=4.7.4
+set DELRB_VER=1.0
+set PTXT_VER=1.55
+set F18_VER=0.9.59
+set F18_TEMPLATE_VER=1.0.0
+
+set F_CUR_DIR=%CD%
+set CUR_DIR=%F_CUR_DIR:~2%
+set CUR_DRIVE=%F_CUR_DIR:~0,1%
+
+set WGET_CMD_1="%F_CUR_DIR%\wget" -N
+set TAR_CMD="%F_CUR_DIR%\tar" -x -v -f
+set SEVENZ_CMD="%F_CUR_DIR%\7z" x
+
+
+echo "F18 windows third party install ver %I_VER%, %I_DATE%"
+echo.
+echo.
 echo Pritisni Ctrl+C za prekid ili bilo koju tipku za nastavak...
 pause > nul
 
-set I_VER="0.7.5"
-set I_DATE="29.02.2012"
+mkdir c:\knowhowERP
+mkdir c:\knowhowERP\lib
+mkdir c:\knowhowERP\util
+mkdir c:\knowhowERP\bin
 
-
-set DELRB_VER="1.0"
-set PTXT_VER="1.55"
-set F18_VER="0.9.59"
-
-echo "F18 windows third party install ver %I_VER%, %I_DATE%"
 
 rem env vars
 set PATH=%PATH%;C:\knowhowERP\bin;C:\knowhowERP\lib;C:\knowhowERP\util
@@ -32,7 +50,6 @@ rem provjeri i kreiraj install dir
 if not exist c:\knowhowERP  md c:\knowhowERP
 
 rem install
-
 
 xcopy  /Y /i /E lib c:\knowhowERP\lib
 xcopy  /Y /i /E util c:\knowhowERP\util
@@ -65,9 +82,14 @@ IF     ERRORLEVEL 1 goto :OFFLINE
 
 :ONLINE
 
-wget -N %ROOT_GCODE_URL%/delphirb_%DELRB_VER%.gz
-wget -N %ROOT_GCODE_URL%/ptxt_%PTXT_VER%.gz
-wget -N %ROOT_GCODE_URL%/F18_Windows_%F18_VER%.gz
+%WGET_CMD_1% %ROOT_GCODE_URL_F18%/delphirb_%DELRB_VER%.gz
+if NOT %ERRORLEVEL% == 0 goto :err_wget_f18
+
+%WGET_CMD_1% %ROOT_GCODE_URL_F18%/ptxt_%PTXT_VER%.gz
+if NOT %ERRORLEVEL% == 0 goto :err_wget_f18
+
+%WGET_CMD_1% %ROOT_GCODE_URL_F18%/F18_Windows_%F18_VER%.gz
+if NOT %ERRORLEVEL% == 0 goto :err_wget_f18
 
 goto :EXTRACT
 
@@ -93,15 +115,40 @@ xcopy /Y /i  c:\knowhowERP\util\_vimrc  "%USERPROFILE%"
 cd ..
 
 
+:qt_dlls
+
+echo 3.b) Qt libs %QT_VER% -> c:/knowhowERP/lib
+
+
+cd "%CUR_DIR%"
+
+set SEVENZ_F_NAME=Qt_windows_dlls_%QT_VER%.7z
+
+%WGET_CMD_1%  %ROOT_GCODE_URL%/%SEVENZ_F_NAME%
+if NOT %ERRORLEVEL% == 0 goto :err_wget
+
+echo 7zip extract %SEVENZ_F_NAME%
+
+cd c:\knowhowERP
+echo %SEVENZ_CMD% "%F_CUR_DIR%\%SEVENZ_F_NAME%"
+%SEVENZ_CMD% "%F_CUR_DIR%\%SEVENZ_F_NAME%"
+
+cd "%CUR_DIR%"
+echo rm 7z %SEVENZ_F_NAME%
+del %SEVENZ_F_NAME%
+
+
 :TEMPLATES
 
 echo.
 echo ----------------------------------------
 echo c:/knowhowERP/template
-set TAR_F_NAME=F18_knowhowERP_template.tar
+set TAR_F_NAME=F18_template_%F18_TEMPLATE_VER%.tar
 set BZ2_F_NAME=%TAR_F_NAME%.bz2
 
-wget -N  %ROOT_GCODE_URL%/%BZ2_F_NAME%
+%WGET_CMD_1%  %ROOT_GCODE_URL_F18%/%BZ2_F_NAME%
+if NOT %ERRORLEVEL% == 0 goto :err_wget_f18
+
 echo bunzip2 %BZ2_F_NAME%
 bunzip2 %BZ2_F_NAME%
 echo untar %TAR_F_NAME%
@@ -109,9 +156,36 @@ tar xfv %TAR_F_NAME%
 echo rm tar %TAR_F_NAME%
 del %TAR_F_NAME%
 
-xcopy  /Y /i template c:\knowhowERP\template
+xcopy  /Y /i template c:\knowhowERP\template\
 
 
+rem ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:kraj
 echo F18 3d_party set uspjesno instaliran
 pause
 exit
+
+rem ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:err_wget
+
+echo error wget %ROOT_GCODE_URL%/%SEVENZ_F_NAME% !
+echo .
+pause
+goto :belaj
+
+rem ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:err_wget_f18
+
+echo error wget %ROOT_GCODE_URL_F18%/%SEVENZ_F_NAME% !
+echo .
+pause
+goto :belaj
+
+
+rem ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:belaj
+
+echo instalacija nije izvrsena. bye bye ...
+pause
+
+
