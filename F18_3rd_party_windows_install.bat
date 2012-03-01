@@ -9,8 +9,8 @@ echo.
 echo.      
 echo. 
 
-set I_VER="1.0.0"
-set I_DATE="01.03.2012"
+set I_VER=1.0.0
+set I_DATE=01.03.2012
 
 
 set ROOT_GCODE_URL_F18=http://knowhow-erp-f18.googlecode.com/files
@@ -19,7 +19,7 @@ set ROOT_GCODE_URL=http://knowhow-erp.googlecode.com/files
 set QT_VER=4.7.4
 set DELRB_VER=1.0
 set PTXT_VER=1.55
-set F18_VER=0.9.59
+set F18_VER=0.9.56
 set F18_TEMPLATE_VER=1.0.0
 
 set F_CUR_DIR=%CD%
@@ -28,10 +28,12 @@ set CUR_DRIVE=%F_CUR_DIR:~0,1%
 
 set WGET_CMD_1="%F_CUR_DIR%\wget" -N
 set TAR_CMD="%F_CUR_DIR%\tar" -x -v -f
+set BUNZIP2_CMD="%F_CUR_DIR%\bunzip2"
+
 set SEVENZ_CMD="%F_CUR_DIR%\7z" x
 
 
-echo "F18 windows third party install ver %I_VER%, %I_DATE%"
+echo F18 windows third party install ver %I_VER%, %I_DATE%
 echo.
 echo.
 echo Pritisni Ctrl+C za prekid ili bilo koju tipku za nastavak...
@@ -42,6 +44,7 @@ mkdir c:\knowhowERP\lib
 mkdir c:\knowhowERP\util
 mkdir c:\knowhowERP\bin
 
+goto :TEMPLATES
 
 rem env vars
 set PATH=%PATH%;C:\knowhowERP\bin;C:\knowhowERP\lib;C:\knowhowERP\util
@@ -140,23 +143,34 @@ del %SEVENZ_F_NAME%
 
 :TEMPLATES
 
+mkdir c:\knowhowERP\template
+
 echo.
 echo ----------------------------------------
 echo c:/knowhowERP/template
 set TAR_F_NAME=F18_template_%F18_TEMPLATE_VER%.tar
 set BZ2_F_NAME=%TAR_F_NAME%.bz2
 
+del /Q %TAR_F_NAME%
+del /Q %BZ2_F_NAME%
+
 %WGET_CMD_1%  %ROOT_GCODE_URL_F18%/%BZ2_F_NAME%
-if NOT %ERRORLEVEL% == 0 goto :err_wget_f18
+if NOT %ERRORLEVEL% == 0 goto :err_wget_f18_bz2
 
 echo bunzip2 %BZ2_F_NAME%
-bunzip2 %BZ2_F_NAME%
+%BUNZIP2_CMD% %BZ2_F_NAME%
+
+
+cd c:\knowhowERP
+
 echo untar %TAR_F_NAME%
-tar xfv %TAR_F_NAME%
+%TAR_CMD% "%CUR_DIR%\%TAR_F_NAME%"
+
+cd "%CUR_DIR%"
+
 echo rm tar %TAR_F_NAME%
 del %TAR_F_NAME%
 
-xcopy  /Y /i template c:\knowhowERP\template\
 
 
 rem ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -177,6 +191,15 @@ rem ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :err_wget_f18
 
 echo error wget %ROOT_GCODE_URL_F18%/%SEVENZ_F_NAME% !
+echo .
+pause
+goto :belaj
+
+
+rem ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:err_wget_f18_bz2
+
+echo error wget %ROOT_GCODE_URL_F18%/%Bz2_F_NAME% !
 echo .
 pause
 goto :belaj
