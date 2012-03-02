@@ -9,8 +9,8 @@ echo.
 echo.      
 echo. 
 
-set I_VER=1.0.0
-set I_DATE=01.03.2012
+set I_VER=1.2.0
+set I_DATE=02.03.2012
 
 
 set ROOT_GCODE_URL_F18=http://knowhow-erp-f18.googlecode.com/files
@@ -26,11 +26,14 @@ set F_CUR_DIR=%CD%
 set CUR_DIR=%F_CUR_DIR:~2%
 set CUR_DRIVE=%F_CUR_DIR:~0,1%
 
-set WGET_CMD_1="%F_CUR_DIR%\wget" -N
+set WGET_CMD_1="%F_CUR_DIR%\wget" -nc
 set TAR_CMD="%F_CUR_DIR%\tar" -x -v -f
 set BUNZIP2_CMD="%F_CUR_DIR%\bunzip2"
 
 set SEVENZ_CMD="%F_CUR_DIR%\7z" x
+
+set MY_DOC_DIR=%USERPROFILE%\My Documents
+set DOWNLOAD_DIR=%USERPROFILE%\My Documents\Downloads
 
 
 echo F18 windows third party install ver %I_VER%, %I_DATE%
@@ -43,6 +46,8 @@ mkdir c:\knowhowERP
 mkdir c:\knowhowERP\lib
 mkdir c:\knowhowERP\util
 mkdir c:\knowhowERP\bin
+mkdir "%MY_DOC_DIR%"
+mkdir "%DOWNLOAD_DIR%"
 
 goto :TEMPLATES
 
@@ -85,14 +90,30 @@ IF     ERRORLEVEL 1 goto :OFFLINE
 
 :ONLINE
 
-%WGET_CMD_1% %ROOT_GCODE_URL_F18%/delphirb_%DELRB_VER%.gz
-if NOT %ERRORLEVEL% == 0 goto :err_wget_f18
 
-%WGET_CMD_1% %ROOT_GCODE_URL_F18%/ptxt_%PTXT_VER%.gz
-if NOT %ERRORLEVEL% == 0 goto :err_wget_f18
+cd "%DOWNLOAD_DIR%"
+set WGET_FILE=delphirb_%DELRB_VER%.gz
+set WGET_URL=%ROOT_GCODE_URL_F18%/%WGET_FILE%
+%WGET_CMD_1% %WGET_URL% 
+if NOT %ERRORLEVEL% == 0 goto :err_wget_url
+cd "%CUR_DIR%"
+copy /y "%DOWNLOAD_DIR%\%WGET_FILE%" .
 
-%WGET_CMD_1% %ROOT_GCODE_URL_F18%/F18_Windows_%F18_VER%.gz
-if NOT %ERRORLEVEL% == 0 goto :err_wget_f18
+cd "%DOWNLOAD_DIR%"
+set WGET_FILE=ptxt_%PTXT_VER%.gz
+set WGET_URL=%ROOT_GCODE_URL_F18%/%WGET_FILE%
+%WGET_CMD_1% %WGET_URL% 
+if NOT %ERRORLEVEL% == 0 goto :err_wget_url
+cd "%CUR_DIR%"
+copy /y "%DOWNLOAD_DIR%\%WGET_FILE%" .
+
+cd "%DOWNLOAD_DIR%"
+set WGET_FILE=F18_Windows_%F18_VER%.gz
+set WGET_URL=%ROOT_GCODE_URL_F18%/%WGET_FILE%
+%WGET_CMD_1% %WGET_URL% 
+if NOT %ERRORLEVEL% == 0 goto :err_wget_url
+cd "%CUR_DIR%"
+copy /y "%DOWNLOAD_DIR%\%WGET_FILE%" .
 
 goto :EXTRACT
 
@@ -120,15 +141,20 @@ cd ..
 
 :qt_dlls
 
-echo 3.b) Qt libs %QT_VER% -> c:/knowhowERP/lib
+echo 3.b) Qt libs %QT_VER% = c:/knowhowERP/lib
 
 
 cd "%CUR_DIR%"
 
 set SEVENZ_F_NAME=Qt_windows_dlls_%QT_VER%.7z
 
-%WGET_CMD_1%  %ROOT_GCODE_URL%/%SEVENZ_F_NAME%
-if NOT %ERRORLEVEL% == 0 goto :err_wget
+cd "%DOWNLOAD_DIR%"
+set WGET_FILE=%SEVENZ_F_NAME%
+set WGET_URL=%ROOT_GCODE_URL%/%WGET_FILE%
+%WGET_CMD_1% %WGET_URL% 
+if NOT %ERRORLEVEL% == 0 goto :err_wget_url
+cd "%CUR_DIR%"
+copy /y "%DOWNLOAD_DIR%\%WGET_FILE%" .
 
 echo 7zip extract %SEVENZ_F_NAME%
 
@@ -154,8 +180,14 @@ set BZ2_F_NAME=%TAR_F_NAME%.bz2
 del /Q %TAR_F_NAME%
 del /Q %BZ2_F_NAME%
 
-%WGET_CMD_1%  %ROOT_GCODE_URL_F18%/%BZ2_F_NAME%
-if NOT %ERRORLEVEL% == 0 goto :err_wget_f18_bz2
+
+cd "%DOWNLOAD_DIR%"
+set WGET_FILE=%BZ2_F_NAME%
+set WGET_URL=%ROOT_GCODE_URL_F18%/%WGET_FILE%
+%WGET_CMD_1% %WGET_URL% 
+if NOT %ERRORLEVEL% == 0 goto :err_wget_url
+cd "%CUR_DIR%"
+copy /y "%DOWNLOAD_DIR%\%WGET_FILE%" .
 
 echo bunzip2 %BZ2_F_NAME%
 %BUNZIP2_CMD% %BZ2_F_NAME%
@@ -171,13 +203,20 @@ cd "%CUR_DIR%"
 echo rm tar %TAR_F_NAME%
 del %TAR_F_NAME%
 
-
-
 rem ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :kraj
 echo F18 3d_party set uspjesno instaliran
 pause
 exit
+
+rem ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:err_wget_url
+
+echo error %ERRORLEVEL% wget %WGET_URL% !
+echo .
+pause
+goto :belaj
+
 
 rem ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :err_wget
