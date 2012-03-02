@@ -13,6 +13,8 @@ set I_VER=1.2.0
 set I_DATE=02.03.2012
 
 
+rem ~~~~~~~~~~~~~~~~~ common ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 set ROOT_GCODE_URL_F18=http://knowhow-erp-f18.googlecode.com/files
 set ROOT_GCODE_URL=http://knowhow-erp.googlecode.com/files
 
@@ -34,6 +36,8 @@ set SEVENZ_CMD="%F_CUR_DIR%\7z" x
 
 set MY_DOC_DIR=%USERPROFILE%\My Documents
 set DOWNLOAD_DIR=%USERPROFILE%\My Documents\Downloads
+
+rem ~~~~~~~~~~~~~~~~~ common ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 echo F18 windows third party install ver %I_VER%, %I_DATE%

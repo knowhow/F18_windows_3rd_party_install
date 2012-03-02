@@ -1,6 +1,7 @@
 1.2.0 2012-03-02, hernad
 
-  - DOWNLOAD_DIR
+  - F18_update 1.3.5
+  - DOWNLOAD_DIR - wget keshira download-e
 
 1.0.0 2012-03-01, hernad
  
