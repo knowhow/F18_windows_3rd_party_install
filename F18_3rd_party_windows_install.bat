@@ -49,8 +49,6 @@ mkdir c:\knowhowERP\bin
 mkdir "%MY_DOC_DIR%"
 mkdir "%DOWNLOAD_DIR%"
 
-goto :TEMPLATES
-
 rem env vars
 set PATH=%PATH%;C:\knowhowERP\bin;C:\knowhowERP\lib;C:\knowhowERP\util
 
@@ -129,12 +127,12 @@ gzip -dNf ptxt_%PTXT_VER%.gz
 gzip -dNf delphirb_%DELRB_VER%.gz
 gzip -dNf F18_Windows_%F18_VER%.gz
 
-xcopy  /Y /i ptxt.exe c:\knowhowERP\util\ptxt_exe.exe
-xcopy  /Y /i delphirb.exe c:\knowhowERP\util
+copy  /Y  ptxt.exe c:\knowhowERP\util\ptxt_exe.exe
+copy  /Y delphirb.exe c:\knowhowERP\util
 mkdir  c:\knowhowERP\bin
-xcopy  /Y /i F18.exe c:\knowhowERP\bin
-xcopy /Y /i  c:\knowhowERP\util\F18.lnk "%USERPROFILE%\Desktop"
-xcopy /Y /i  c:\knowhowERP\util\_vimrc  "%USERPROFILE%"
+copy  /Y  F18.exe c:\knowhowERP\bin
+copy /Y  c:\knowhowERP\util\F18.lnk "%USERPROFILE%\Desktop"
+copy /Y  c:\knowhowERP\util\_vimrc  "%USERPROFILE%"
 
 cd ..
 
