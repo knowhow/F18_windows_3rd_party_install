@@ -9,8 +9,8 @@ echo.
 echo.      
 echo. 
 
-set I_VER=1.2.0
-set I_DATE=02.03.2012
+set I_VER=1.3.0
+set I_DATE=07.03.2012
 
 
 rem ~~~~~~~~~~~~~~~~~ common ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,6 +63,14 @@ rem install
 
 xcopy  /Y /i /E lib c:\knowhowERP\lib
 xcopy  /Y /i /E util c:\knowhowERP\util
+
+echo F18.exe dependencies
+copy /Y lib\libpq.dll c:\knowhowERP\bin\
+copy /Y lib\ssleay32.dll c:\knowhowERP\bin\
+copy /Y lib\libeay32.dll c:\knowhowERP\bin\
+copy /Y lib\libintl-8.dll c:\knowhowERP\bin\
+copy /Y lib\libiconv-2.dll c:\knowhowERP\bin\
+
 
 echo kopiram fontove
 cd  fonts\ptxt_fonts\
